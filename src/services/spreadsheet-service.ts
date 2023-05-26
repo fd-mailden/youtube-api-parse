@@ -6,7 +6,7 @@ import { SPREADSHEAT_ID } from '../config/variables';
 const credentials = require('../../google-config.json');
 
 class _SpreadsheetService {
-  async writeToSpreadsheet(values: VideoDetails[][], sheetName: string) {
+  async writeToSpreadsheet(values: string[][], sheetName: string) {
     try {
       const auth = new google.auth.GoogleAuth({
         credentials,
