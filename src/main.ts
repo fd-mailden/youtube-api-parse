@@ -1,8 +1,6 @@
 import { AccountsFetchService } from './services/accounts-fetch-service';
-import { YoutubeApiService } from './services/youtube-api-service';
-import { SpreadsheetService } from './services/spreadsheet-service';
-import { ArrayService } from './services/array-service';
-import { UpdateYoutubeVideos } from './services/update/update-youtube-videos';
+
+import { UpdateYoutubeChannels } from './services/update/update-youtube-channels';
 
 async function main() {
   try {
@@ -10,13 +8,14 @@ async function main() {
     const publishedBefore = '2023-05-07T23:59:59Z';
     const accounts = await AccountsFetchService.getYouTubeAccounts();
     // solved
-    // await UpdateYoutubeChannels.update(accounts);
+    await UpdateYoutubeChannels.update(accounts);
     ///
-    await UpdateYoutubeVideos.getVideosWithTimeRange(
-      accounts,
-      publishedAfter,
-      publishedBefore,
-    );
+    // solved
+    // await UpdateYoutubeVideos.getVideosWithTimeRange(
+    //   accounts,
+    //   publishedAfter,
+    //   publishedBefore,
+    // );
   } catch (error) {
     console.error('Error:', error);
   }

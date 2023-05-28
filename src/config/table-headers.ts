@@ -8,6 +8,7 @@ export const SHEETS_NAMES = {
 
 export const YOUTUBE_CHANNELS_HEAD = [
   'ChannelId',
+  'Is Active Channel',
   'Title',
   'Description',
   'Custom Url',

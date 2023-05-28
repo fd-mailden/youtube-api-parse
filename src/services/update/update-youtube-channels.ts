@@ -24,9 +24,19 @@ class _UpdateYoutubeChannels {
         }),
       );
       const channelsListData = await channelsList;
+
       const flattenedArray = ArrayService.flattened(channelsListData);
+
+      if (!flattenedArray.length) throw new Error(`Channels does not exist!!!`);
+
+      const inactive = accounts.filter(
+        (obj) => !flattenedArray.some((item) => item.id === obj.id),
+      );
+      const inactiveList = inactive.map((item) => [item.id, 'inactive']);
+
       const values = flattenedArray.map((channel) => [
         channel.id,
+        'active',
         channel.snippet.title,
         channel.snippet.description,
         channel.snippet.customUrl,
@@ -35,12 +45,12 @@ class _UpdateYoutubeChannels {
         channel.statistics.subscriberCount,
         channel.statistics.videoCount,
       ]);
+
+      await SpreadsheetService.clearSpreadsheet(SHEETS_NAMES.channels);
       await SpreadsheetService.writeToSpreadsheet(
-        [YOUTUBE_CHANNELS_HEAD, ...values],
+        [YOUTUBE_CHANNELS_HEAD, ...values, ...inactiveList],
         SHEETS_NAMES.channels,
       );
-
-      console.log(channelsList);
     } catch (error) {
       console.log(error);
     }
