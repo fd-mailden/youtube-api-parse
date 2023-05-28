@@ -16,3 +16,15 @@ export const YOUTUBE_CHANNELS_HEAD = [
   'Subscriber Count',
   'Video count',
 ];
+
+export const YOUTUBE_VIDEO_HEAD = [
+  'Video id',
+  'Channel Id',
+  'Video Title',
+  'Published At',
+  'View Count',
+  'Favorite Count',
+  'Like Count',
+  'Comment Count',
+  'Comment Count',
+];

@@ -1,4 +1,4 @@
-import { POSTGRES_CONNECTION } from '../config/pg-connection';
+import { POSTGRES_CONNECTION } from '../config/variables';
 
 const { Pool } = require('pg');
 
