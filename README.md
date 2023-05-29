@@ -29,7 +29,8 @@ https://docs.google.com/spreadsheets/d/1OHnTKMA4filEgqw_jHsmEccxKdM7rn4KbhGi6bA-
 
 1. Before running the application, ensure that all required input parameters are present, including the .env file and
    google-config.json file.
-2. Build the application using the command `yarn build`.
+2. Dependency installation `yarn install`.
+3. Build the application using the command `yarn build`.
 3. Start `node dist/main.js 2023-05-01 2023-05-07`. `node dist/main.js <start_date> <end_date>`. Replace <start_date>
    and <end_date> with the desired date range for the application. Please ensure that the dates are provided in the
    format "year-month-date" (e.g., 2023-05-07). Note that the end date should not be a date from the future.
