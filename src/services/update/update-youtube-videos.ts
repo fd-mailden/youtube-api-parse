@@ -10,7 +10,7 @@ class _UpdateYoutubeVideos {
     try {
       const idList = accounts.map((item) => item.id);
 
-      const videoPromises = [idList[0], idList[1]].map((channelId) =>
+      const videoPromises = idList.map((channelId) =>
         YoutubeApiService.search(channelId, publishedAfter, publishedBefore),
       );
 
@@ -47,7 +47,7 @@ class _UpdateYoutubeVideos {
         video.statistics.commentCount,
         video.statistics.commentCount,
       ]);
-      // await SpreadsheetService.clearSpreadsheet(SHEETS_NAMES.posts);
+      await SpreadsheetService.clearSpreadsheet(SHEETS_NAMES.posts);
       await SpreadsheetService.writeToSpreadsheet(
         [YOUTUBE_VIDEO_HEAD, ...values],
         SHEETS_NAMES.posts,
