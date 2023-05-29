@@ -1,21 +1,26 @@
 import { AccountsFetchService } from './services/accounts-fetch-service';
-
 import { UpdateYoutubeChannels } from './services/update/update-youtube-channels';
+import * as process from 'process';
+import { InputDataService } from './services/input-data-service';
+import { UpdateYoutubeVideos } from './services/update/update-youtube-videos';
 
 async function main() {
   try {
-    const publishedAfter = '2023-05-01T00:00:00Z';
-    const publishedBefore = '2023-05-07T23:59:59Z';
+    if (!process.argv[2] || !process.argv[3])
+      throw new Error('Date start/end  NOT_FOUND !!!');
+
+    const { publishedAfter, publishedBefore } =
+      InputDataService.getPublishDateRange(process.argv[2], process.argv[3]);
+
     const accounts = await AccountsFetchService.getYouTubeAccounts();
-    // solved
+    // Update Channels
     await UpdateYoutubeChannels.update(accounts);
-    ///
-    // solved
-    // await UpdateYoutubeVideos.getVideosWithTimeRange(
-    //   accounts,
-    //   publishedAfter,
-    //   publishedBefore,
-    // );
+    // Update Videos
+    await UpdateYoutubeVideos.getVideosWithTimeRange(
+      accounts,
+      publishedAfter,
+      publishedBefore,
+    );
   } catch (error) {
     console.error('Error:', error);
   }
