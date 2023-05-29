@@ -1,73 +1,45 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+## Inputs
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+### To get started you will need:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- google-config.json file, which should be on the same level as the src folder
+- .env . the example is in .env.example
 
-## Description
+#### You will need a YOUTUBE_API_KEY quota of at least 15,000. Note that if you are requesting 100 YouTube channels, the quota will be 10,000.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+##### Please see the cost of "https://developers.google.com/youtube/v3/determine_quota_cost" requests.
 
-## Installation
+### Application uses YouTube queries like this:
 
-```bash
-$ yarn install
-```
+- videos.list - (cost 1) - maximum number of id in one query - 50
+- search.list - (cost 100) - maximum number of id in one query - 1
+- channels.list - (cost 1) - maximum number of id in one query 40
 
-## Running the app
+### When working with the program you should take into account:
 
-```bash
-# development
-$ yarn run start
+- when filling the table, old data is erased and new data is written. You can extend the functionality by adding a new
+  input parameter and making the table clearing condition in `update-youtube-channels.ts and update-youtube-videos.ts`
+  files for the line `await SpreadsheetService.clearSpreadsheet(SHEETS_NAMES.channels);`
 
-# watch mode
-$ yarn run start:dev
+### Tables
 
-# production mode
-$ yarn run start:prod
-```
+https://docs.google.com/spreadsheets/d/1OHnTKMA4filEgqw_jHsmEccxKdM7rn4KbhGi6bA-PSw/edit?usp=sharing
+
+## Usage
+
+1. Before running the application, ensure that all required input parameters are present, including the .env file and
+   google-config.json file.
+2. Build the application using the command `yarn build`.
+3. Start `node dist/main.js 2023-05-01 2023-05-07`. `node dist/main.js <start_date> <end_date>`. Replace <start_date>
+   and <end_date> with the desired date range for the application. Please ensure that the dates are provided in the
+   format "year-month-date" (e.g., 2023-05-07). Note that the end date should not be a date from the future.
+4. Optionally, you can configure the application to run at regular intervals by utilizing cron jobs or scheduling tools.
+   This will allow you to automate the execution of the application based on your desired frequency.
 
 ## Test
 
-```bash
-# unit tests
-$ yarn run test
+`yarn test`
 
-# e2e tests
-$ yarn run test:e2e
+## Authors
 
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+[Danil Kravchenko](https://github.com/fd-mailden)
