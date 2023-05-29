@@ -1,6 +1,6 @@
 import { google, sheets_v4 } from 'googleapis';
 import { sheets } from 'googleapis/build/src/apis/sheets';
-import { SPREADSHEAT_ID } from '../config/variables';
+import { SPREAD_SHEET_ID, SPREAD_SHEET_URL } from '../config/variables';
 import { GoogleAuth } from 'google-auth-library';
 
 const credentials = require('../../google-config.json');
@@ -13,7 +13,7 @@ class _SpreadsheetService {
   constructor() {
     this.auth = new google.auth.GoogleAuth({
       credentials,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+      scopes: [SPREAD_SHEET_URL],
     });
     this.client = null;
     this.sheetsSp = null;
@@ -36,19 +36,10 @@ class _SpreadsheetService {
 
   async writeToSpreadsheet(values: string[][], sheetName: string) {
     try {
-      // const auth = new google.auth.GoogleAuth({
-      //   credentials,
-      //   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-      // });
-      // const client: any = await auth.getClient();
-      // const sheetsSp: sheets_v4.Sheets = sheets({
-      //   version: 'v4',
-      //   auth: client,
-      // });
       await this.initializeClient();
       this.initializeSheets();
 
-      const spreadsheetId = SPREADSHEAT_ID; // Замените на свой идентификатор таблицы
+      const spreadsheetId = SPREAD_SHEET_ID;
 
       const resource: sheets_v4.Schema$ValueRange = {
         values,
@@ -72,7 +63,7 @@ class _SpreadsheetService {
     try {
       await this.initializeClient();
       this.initializeSheets();
-      const spreadsheetId = SPREADSHEAT_ID;
+      const spreadsheetId = SPREAD_SHEET_ID;
       const range = `${sheetName}!A1:Z`;
 
       const request: sheets_v4.Params$Resource$Spreadsheets$Values$Clear = {

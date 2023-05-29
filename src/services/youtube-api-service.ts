@@ -2,6 +2,8 @@ import { youtube } from 'googleapis/build/src/apis/youtube';
 import { YOUTUBE_CONFIG } from '../config/youtube';
 import { youtube_v3 } from 'googleapis';
 
+const MAX_RESULTS = 50;
+
 class _YoutubeApiService {
   private youtubeGA = youtube({
     version: 'v3',
@@ -14,7 +16,7 @@ class _YoutubeApiService {
       const response = await this.youtubeGA.videos.list({
         part: ['snippet,statistics'],
         id: [list],
-        maxResults: 50,
+        maxResults: MAX_RESULTS,
       });
 
       return response.data.items;
@@ -33,7 +35,7 @@ class _YoutubeApiService {
       const videosResponse = await this.youtubeGA.search.list({
         part: ['snippet'],
         channelId: channelId,
-        maxResults: 50,
+        maxResults: MAX_RESULTS,
         order: 'date',
         publishedAfter,
         publishedBefore,
